@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+/* 🌈 Base Theme */
+body {
+  background: #f8f5ff;
+  font-family: "Poppins", sans-serif;
+  color: #2d0a57;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🌅 Hero Gradient */
+.hero {
+  background: linear-gradient(135deg, #7c3aed, #9c27b0);
+  color: white;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.hero button {
+  background-color: #fbbf24;
+  color: #2d0a57;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.hero button:hover {
+  background-color: #fde68a;
+  transform: scale(1.05);
+}
+
+/* 🛒 Product Cards */
+.product-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.15);
+}
+
+/* 🌼 Primary Button */
+.btn-primary {
+  background: linear-gradient(135deg, #7c3aed, #9c27b0);
+  color: white;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #6d28d9, #8e24aa);
+  transform: scale(1.03);
+}
+
+/* ✨ Filter Buttons */
+.filter-btn-active {
+  background-color: #7c3aed;
+  color: white;
+}
+
+.filter-btn {
+  background-color: #ede9fe;
+  color: #5b21b6;
+  font-weight: 500;
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+}
+
+.filter-btn:hover {
+  background-color: #c4b5fd;
+}
+button:hover {
+  box-shadow: 0 3px 10px rgba(124, 58, 237, 0.2);
+}
