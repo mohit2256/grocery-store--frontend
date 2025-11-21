@@ -12,7 +12,7 @@ export default function MyOrders() {
   const [fetching, setFetching] = useState(true);
 
   const API_BASE =
-    process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+    process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com";
 
   const STATUS_COLORS = {
     Pending: "bg-yellow-400 text-black shadow-yellow-300",

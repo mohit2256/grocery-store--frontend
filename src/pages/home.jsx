@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard";
 import CategorySection from "../components/CategorySection";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com";
 
 const placeholders = ["pulses", "rice", "flour", "oil", "snacks", "spices"];
 

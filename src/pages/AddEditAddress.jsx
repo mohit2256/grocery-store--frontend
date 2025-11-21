@@ -23,7 +23,7 @@ export function AddEditAddress() {
     try {
       const token = await user.getIdToken();
 
-      const res = await fetch("http://localhost:5000/api/users/address", {
+      const res = await fetch("https://grocery-store-backend-m0xj.onrender.com/api/users/address", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

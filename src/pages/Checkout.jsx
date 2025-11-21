@@ -125,7 +125,7 @@ export default function Checkout({ cart, setCart }) {
       const backendPaymentMethod = paymentMethod === "Online" ? "UPI" : "COD";
 
       const res = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api/orders/create`,
+        `${process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com"}/api/orders/create`,
         {
           method: "POST",
           headers: {

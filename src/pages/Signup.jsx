@@ -23,7 +23,7 @@ export default function Signup() {
     const token = await firebaseUser.getIdToken(true);
 
     await fetch(
-      `${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api/users/sync`,
+      `${process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com"}/api/users/sync`,
       {
         method: "POST",
         headers: {

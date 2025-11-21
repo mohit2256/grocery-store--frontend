@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/Authcontext";
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com";
 
 export default function AdminOrderView() {
   const { id } = useParams();

@@ -31,7 +31,7 @@ export default function Navbar() {
         const token = await firebaseUser.getIdToken(true);
 
         const res = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api/users/me`,
+          `${process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com"}/api/users/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
