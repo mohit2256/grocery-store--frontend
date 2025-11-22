@@ -16,7 +16,8 @@ export default function Checkout({ cart, setCart }) {
   });
 
   const [deliveryType, setDeliveryType] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
+  // 🔥 DEFAULT TO COD – ONLY OPTION
+  const [paymentMethod, setPaymentMethod] = useState("COD");
   const [errors, setErrors] = useState({});
   const [savedAddress, setSavedAddress] = useState(null);
   const [isPaying, setIsPaying] = useState(false);
@@ -31,7 +32,7 @@ export default function Checkout({ cart, setCart }) {
   );
 
   const FREE_DELIVERY_THRESHOLD = 200;
-  const handlingCharge = 18; // always FREE
+  const handlingCharge = 18; // always FREE (just kept for reference)
   const deliveryCharge = itemTotal < FREE_DELIVERY_THRESHOLD ? 25 : 0;
   const amountToFreeDelivery =
     itemTotal < FREE_DELIVERY_THRESHOLD
@@ -83,6 +84,9 @@ export default function Checkout({ cart, setCart }) {
       newErrors.phone = "Enter valid 10-digit number.";
 
     if (!deliveryType) newErrors.deliveryType = "Select delivery.";
+
+    // paymentMethod is always "COD", so this won't fail,
+    // but we keep it for safety.
     if (!paymentMethod) newErrors.paymentMethod = "Select payment.";
 
     setErrors(newErrors);
@@ -103,7 +107,7 @@ export default function Checkout({ cart, setCart }) {
     }));
 
   // -------------------------------
-  // PAYMENT HANDLER
+  // PAYMENT HANDLER (COD ONLY)
   // -------------------------------
   const handlePayment = async () => {
     if (!validateForm()) return;
@@ -117,15 +121,20 @@ export default function Checkout({ cart, setCart }) {
     setIsPaying(true);
 
     try {
+      // Save address locally for future
       localStorage.setItem("savedAddress", JSON.stringify(formData));
 
       const token = await user.getIdToken(true);
       const products = buildProductsForBackend();
 
-      const backendPaymentMethod = paymentMethod === "Online" ? "UPI" : "COD";
+      // 🔥 Always COD now
+      const backendPaymentMethod = "COD";
 
       const res = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || "https://grocery-store-backend-m0xj.onrender.com"}/api/orders/create`,
+        `${
+          process.env.REACT_APP_API_BASE_URL ||
+          "https://grocery-store-backend-m0xj.onrender.com"
+        }/api/orders/create`,
         {
           method: "POST",
           headers: {
@@ -156,6 +165,7 @@ export default function Checkout({ cart, setCart }) {
 
       navigate("/success", { state: { order: data.order } });
     } catch (err) {
+      // Fallback local "offline" order store
       const offlineOrder = {
         id: Date.now(),
         items: cart,
@@ -163,7 +173,7 @@ export default function Checkout({ cart, setCart }) {
         date: new Date().toLocaleString(),
         address: formData,
         deliveryType,
-        paymentMethod,
+        paymentMethod, // will be "COD"
         offline: true,
       };
 
@@ -195,7 +205,6 @@ export default function Checkout({ cart, setCart }) {
       <ProgressSteps currentStep={2} />
 
       <div className="p-4 sm:p-6 max-w-2xl mx-auto">
-
         {/* 🔥 PSYCHOLOGICAL DELIVERY BAR */}
         {itemTotal < FREE_DELIVERY_THRESHOLD && (
           <div className="p-3 mb-4 rounded-xl text-center font-semibold text-sm text-purple-900 bg-yellow-200 animate-pulse shadow">
@@ -218,7 +227,7 @@ export default function Checkout({ cart, setCart }) {
 
         <h2 className="text-3xl font-bold mb-4 text-purple-700">Checkout</h2>
 
-        {/* ⭐ OPTION A + D BUTTON (TOP) */}
+        {/* ADD MORE PRODUCTS (TOP) */}
         <button
           onClick={() => navigate("/")}
           className="
@@ -341,7 +350,7 @@ export default function Checkout({ cart, setCart }) {
           )}
         </div>
 
-        {/* PAYMENT METHOD */}
+        {/* PAYMENT METHOD – COD ONLY */}
         <div className="border rounded-xl p-4 mb-6 bg-white shadow">
           <h3 className="font-semibold mb-2">Payment Method</h3>
 
@@ -355,16 +364,6 @@ export default function Checkout({ cart, setCart }) {
             Cash on Delivery
           </label>
 
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              value="Online"
-              checked={paymentMethod === "Online"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            />
-            Pay Online (UPI)
-          </label>
-
           {errors.paymentMethod && (
             <p className="text-red-600 text-sm">{errors.paymentMethod}</p>
           )}
@@ -374,12 +373,12 @@ export default function Checkout({ cart, setCart }) {
         <button
           disabled={isPaying}
           onClick={handlePayment}
-          className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 active:scale-95 shadow-lg"
+          className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 active:scale-95 shadow-lg disabled:opacity-60"
         >
           {isPaying ? "Processing…" : "Place Order"}
         </button>
 
-        {/* ⭐ OPTION A + D BUTTON (BOTTOM) */}
+        {/* ADD MORE PRODUCTS (BOTTOM) */}
         <button
           onClick={() => navigate("/")}
           className="
